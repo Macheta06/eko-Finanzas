@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Antigravity & Agent Config
+.agent/
+.agents/
+Eko-Finanzas-Blueprint.md
+skills-lock.json
