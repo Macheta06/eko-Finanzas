@@ -1,15 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --font-inter: "Inter", sans-serif;
-  --color-brand-primary: #10B981;
+/* ============================================
+   EKO-FINANZAS DESIGN TOKENS
+   Domain: Household ledger, equitable sharing
+   Signature: Income proportion bars
+   Depth: Borders-only strategy (no shadows)
+   ============================================ */
+
+:root {
+  /* Brand — deep ledger green + copper accent */
+  --color-brand:        #1a7a50;
+  --color-brand-light:  #22a36a;
+  --color-brand-subtle: #d4f0e4;
+  --color-copper:       #b5651d;
+  --color-copper-light: #f5e0cb;
+
+  /* Surfaces — parchment elevation scale */
+  --color-canvas:    #f7f5f0;   /* page */
+  --color-surface-1: #fdfcfa;   /* cards — barely lifted */
+  --color-surface-2: #ffffff;   /* modals / dropdowns */
+
+  /* Borders — border-only depth */
+  --color-border-soft:     rgba(0, 0, 0, 0.07);
+  --color-border-default:  rgba(0, 0, 0, 0.12);
+  --color-border-emphasis: rgba(0, 0, 0, 0.22);
+
+  /* Text hierarchy — 4 levels */
+  --color-text-primary:   #1a1612;
+  --color-text-secondary: #4a4540;
+  --color-text-tertiary:  #8a8078;
+  --color-text-muted:     #b8b0a8;
+
+  /* Semantic */
+  --color-success: #15803d;
+  --color-danger:  #c0392b;
+  --color-warning: #b45309;
+
+  /* Spacing base: 4px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Radius */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
 }
 
+/* ============================================
+   GLOBAL RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-  margin: 0;
-  font-family: var(--font-inter), system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f8fafc;
-  color: #0f172a;
+  line-height: 1.5;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.surface-1 {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+}
+
+.surface-2 {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.text-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+}
+
+.text-subheading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.text-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.text-muted { color: var(--color-text-muted); font-size: 0.875rem; }
+.text-secondary { color: var(--color-text-secondary); }
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, opacity 150ms ease;
+  border: 1px solid transparent;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-brand);
+  color: #fff;
+  border-color: var(--color-brand);
+}
+.btn-primary:hover:not(:disabled) { background: var(--color-brand-light); border-color: var(--color-brand-light); }
+
+.btn-secondary {
+  background: var(--color-surface-1);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+}
+.btn-secondary:hover:not(:disabled) { background: var(--color-canvas); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: transparent;
+}
+.btn-ghost:hover:not(:disabled) { background: var(--color-canvas); color: var(--color-text-primary); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--color-danger);
+  border-color: var(--color-border-soft);
+}
+.btn-danger:hover:not(:disabled) { background: #fdf0ef; border-color: #e9c5c2; }
+
+.btn-sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   INPUTS
+   ============================================ */
+.input-field {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-canvas);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  transition: border-color 150ms ease, background 150ms ease;
+  outline: none;
+}
+
+.input-field::placeholder { color: var(--color-text-muted); }
+.input-field:focus { border-color: var(--color-brand); background: var(--color-surface-2); }
+
+/* ============================================
+   EKO SIGNATURE: PROPORTION BAR
+   ============================================ */
+.proportion-track {
+  width: 100%;
+  height: 6px;
+  background: var(--color-border-soft);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.proportion-fill {
+  height: 100%;
+  background: var(--color-brand);
+  border-radius: var(--radius-full);
+  transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fadeIn 240ms ease forwards; }
+.animate-slide-up { animation: slideUp 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* ============================================
+   BADGE
+   ============================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.badge-green {
+  background: var(--color-brand-subtle);
+  color: var(--color-brand);
+}
+
+.badge-copper {
+  background: var(--color-copper-light);
+  color: var(--color-copper);
+}
+
+/* ============================================
+   TAB BAR (signature: bottom tabs, not sidebar)
+   ============================================ */
+.tab-bar {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border: none;
+  background: transparent;
+  transition: background 150ms ease, color 150ms ease;
+  font-family: var(--font-sans);
+}
+
+.tab-item.active {
+  background: var(--color-surface-2);
+  color: var(--color-brand);
+  border: 1px solid var(--color-border-soft);
+}
+
+.tab-item:hover:not(.active) {
+  background: var(--color-canvas);
+  color: var(--color-text-secondary);
 }
