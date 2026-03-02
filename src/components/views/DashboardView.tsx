@@ -49,7 +49,7 @@ export const DashboardView: React.FC = () => {
   return (
     <div className="flex flex-col gap-5 animate-slide-up">
       {/* Header del hogar */}
-      <div className="surface-1 p-5" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+      <div className="surface-1" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--color-brand)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <Home size={18} color="#fff" />
@@ -70,21 +70,21 @@ export const DashboardView: React.FC = () => {
 
       {/* KPI Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
-        <div className="surface-1 p-4">
+        <div className="surface-1 compact">
           <p className="text-label">Ingreso Total</p>
           <p className="mono" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px' }}>
             ${totalIncome.toLocaleString('es-CO')}
           </p>
           <p className="text-muted" style={{ fontSize: '0.75rem', marginTop: '2px' }}>{members.length} integrante{members.length !== 1 ? 's' : ''}</p>
         </div>
-        <div className="surface-1 p-4">
+        <div className="surface-1 compact">
           <p className="text-label">Gastos Totales</p>
           <p className="mono" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px', color: 'var(--color-danger)' }}>
             ${totalExpenses.toLocaleString('es-CO')}
           </p>
           <p className="text-muted" style={{ fontSize: '0.75rem', marginTop: '2px' }}>{expenses.length} gasto{expenses.length !== 1 ? 's' : ''}</p>
         </div>
-        <div className="surface-1 p-4">
+        <div className="surface-1 compact">
           <p className="text-label">Gastos Compartidos</p>
           <p className="mono" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px', color: 'var(--color-warning)' }}>
             ${sharedExpenses.toLocaleString('es-CO')}
@@ -93,7 +93,7 @@ export const DashboardView: React.FC = () => {
             {totalExpenses > 0 ? `${((sharedExpenses / totalExpenses) * 100).toFixed(0)}% del total` : '—'}
           </p>
         </div>
-        <div className="surface-1 p-4">
+        <div className="surface-1 compact">
           <p className="text-label">Balance</p>
           <p className="mono" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px', color: totalIncome - totalExpenses >= 0 ? 'var(--color-success)' : 'var(--color-danger)' }}>
             ${(totalIncome - totalExpenses).toLocaleString('es-CO')}
@@ -106,7 +106,7 @@ export const DashboardView: React.FC = () => {
       {proration.length > 0 && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
           {/* Bar: Aporte por miembro */}
-          <div className="surface-1 p-5">
+          <div className="surface-1">
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '16px' }}>
               <TrendingUp size={14} style={{ color: 'var(--color-brand)' }} />
               <span className="text-subheading" style={{ fontSize: '0.9rem' }}>Aporte por integrante</span>
@@ -126,7 +126,7 @@ export const DashboardView: React.FC = () => {
           </div>
 
           {/* Pie: Distribución de ingresos */}
-          <div className="surface-1 p-5">
+          <div className="surface-1">
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '16px' }}>
               <TrendingUp size={14} style={{ color: 'var(--color-brand)' }} />
               <span className="text-subheading" style={{ fontSize: '0.9rem' }}>Distribución de ingresos</span>
@@ -148,7 +148,7 @@ export const DashboardView: React.FC = () => {
 
       {/* Tabla de prorrateo */}
       {proration.length > 0 && (
-        <div className="surface-1 p-5">
+        <div className="surface-1">
           <h3 className="text-subheading" style={{ marginBottom: '12px', fontSize: '0.9rem' }}>Resumen de aportes</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '8px', padding: '6px 0', borderBottom: '1px solid var(--color-border-default)' }}>
@@ -173,7 +173,7 @@ export const DashboardView: React.FC = () => {
       )}
 
       {proration.length === 0 && (
-        <div className="surface-1 p-6" style={{ textAlign: 'center' }}>
+        <div className="surface-1" style={{ textAlign: 'center' }}>
           <p className="text-secondary">Agrega integrantes y gastos para ver el cálculo de aportes aquí.</p>
         </div>
       )}

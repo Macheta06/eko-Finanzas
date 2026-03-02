@@ -36,7 +36,7 @@ export const ExpensesManager: React.FC = () => {
   const totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
 
   return (
-    <div className="surface-1 p-5 flex flex-col gap-5">
+    <div className="surface-1 flex flex-col gap-5">
       <div className="flex items-center gap-2">
         <Receipt size={16} style={{ color: 'var(--color-brand)' }} />
         <h2 className="text-subheading">Gastos</h2>

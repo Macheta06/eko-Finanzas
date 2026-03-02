@@ -39,7 +39,7 @@ export const HomeSetupView: React.FC = () => {
         </div>
 
         {mode === 'idle' && (
-          <div className="surface-1 p-6 flex flex-col gap-3">
+          <div className="surface-1 flex flex-col gap-3">
             <h2 className="text-subheading text-center mb-2">¿Cómo quieres empezar?</h2>
             <button className="btn btn-primary" style={{ width: '100%', padding: '14px' }} onClick={() => setMode('create')}>
               <Plus size={16} />
@@ -53,7 +53,7 @@ export const HomeSetupView: React.FC = () => {
         )}
 
         {mode === 'create' && (
-          <div className="surface-1 p-6 flex flex-col gap-4 animate-fade-in">
+          <div className="surface-1 flex flex-col gap-4 animate-fade-in">
             <div>
               <h2 className="text-subheading mb-1">Crea tu Hogar</h2>
               <p className="text-muted">Después podrás compartir el código con los demás integrantes.</p>
@@ -79,7 +79,7 @@ export const HomeSetupView: React.FC = () => {
         )}
 
         {mode === 'join' && (
-          <div className="surface-1 p-6 flex flex-col gap-4 animate-fade-in">
+          <div className="surface-1 flex flex-col gap-4 animate-fade-in">
             <div>
               <h2 className="text-subheading mb-1">Unirte a un Hogar</h2>
               <p className="text-muted">Ingresa el código que te compartieron.</p>

@@ -22,7 +22,7 @@ export const MembersManager: React.FC = () => {
   };
 
   return (
-    <div className="surface-1 p-5 flex flex-col gap-5">
+    <div className="surface-1 flex flex-col gap-5">
       <div className="flex items-center gap-2">
         <Users size={16} style={{ color: 'var(--color-brand)' }} />
         <h2 className="text-subheading">Integrantes</h2>
