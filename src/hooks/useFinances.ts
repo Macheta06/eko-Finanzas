@@ -21,7 +21,10 @@ export function useFinances() {
   const calculateProrating = (): ProratedResult[] => {
     if (store.members.length === 0) return [];
 
-    const totalIncome = store.members.reduce((sum, m) => sum + Number(m.monthly_income), 0);
+    const totalIncome = store.members.reduce(
+      (sum, m) => sum + Number(m.monthly_income),
+      0,
+    );
 
     // Gastos compartidos totales
     const totalSharedExpenses = store.expenses
@@ -30,16 +33,19 @@ export function useFinances() {
 
     return store.members.map((member) => {
       const income = Number(member.monthly_income);
-      
+
       // Manejar el caso de división por cero si el ingreso total es 0
-      const proportionalPercentage = totalIncome > 0 ? (income / totalIncome) : (1 / store.members.length);
+      const proportionalPercentage =
+        totalIncome > 0 ? income / totalIncome : 1 / store.members.length;
 
       // Aporte de gastos compartidos
       const sharedContribution = proportionalPercentage * totalSharedExpenses;
 
       // Gastos estrictamente individuales asignados a este miembro
       const individualExpenses = store.expenses
-        .filter((e) => e.scope === 'INDIVIDUAL' && e.member_id_assigned === member.id)
+        .filter(
+          (e) => e.scope === 'INDIVIDUAL' && e.member_id_assigned === member.id,
+        )
         .reduce((sum, e) => sum + Number(e.amount), 0);
 
       return {
@@ -56,7 +62,7 @@ export function useFinances() {
     home: store.home,
     members: store.members,
     expenses: store.expenses,
-    
+
     // Mutations
     setHome: store.setHome,
     addMember: store.addMember,

@@ -50,5 +50,5 @@ export interface ProratedResult {
   member_id: string;
   member_name: string;
   proportional_percentage: number; // Ej. 0.60 (60%)
-  assigned_amount: number;         // Cuánto del gasto total debe poner esta persona
+  assigned_amount: number; // Cuánto del gasto total debe poner esta persona
 }

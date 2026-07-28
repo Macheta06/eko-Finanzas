@@ -1,6 +1,6 @@
 /**
  * patrón de diseño: State Store Pattern con Persistencia (Zustand + LocalStorage).
- * Separa el almacenamiento de los datos puros de la lógica de negocio, 
+ * Separa el almacenamiento de los datos puros de la lógica de negocio,
  * encargando a Zustand solamente el guardado/recuperado y las mutaciones atómicas.
  */
 import { create } from 'zustand';
@@ -12,7 +12,7 @@ export interface HomeState {
   home: Home | null;
   members: Member[];
   expenses: Expense[];
-  
+
   // Actions
   setHome: (name: string, shareCode: string) => void;
   loadHome: (home: Home, members: Member[], expenses: Expense[]) => void;
@@ -60,7 +60,7 @@ export const useHomeStore = create<HomeState>()(
       removeMember: (id) =>
         set((state) => ({
           members: state.members.filter((m) => m.id !== id),
-          // Las expenses asignadas individualmente a este miembro deberían borrarse o reasignarse, 
+          // Las expenses asignadas individualmente a este miembro deberían borrarse o reasignarse,
           // pero por simplicidad las borramos:
           expenses: state.expenses.filter((e) => e.member_id_assigned !== id),
         })),
@@ -86,6 +86,6 @@ export const useHomeStore = create<HomeState>()(
     }),
     {
       name: 'eko-finanzas-storage', // key in localStorage
-    }
-  )
+    },
+  ),
 );

@@ -5,7 +5,7 @@ import type { ExpenseScope, ExpenseType } from '@/types/models';
 
 /**
  * Gestiona los gastos del hogar.
- * Permite marcar gastos como SHARED o INDIVIDUAL, y si es individual, 
+ * Permite marcar gastos como SHARED o INDIVIDUAL, y si es individual,
  * asignarlo a un miembro específico.
  */
 export const ExpensesManager: React.FC = () => {
@@ -24,7 +24,8 @@ export const ExpensesManager: React.FC = () => {
       amount: amountNum,
       type,
       scope,
-      member_id_assigned: scope === 'INDIVIDUAL' ? assignedId || undefined : undefined,
+      member_id_assigned:
+        scope === 'INDIVIDUAL' ? assignedId || undefined : undefined,
     });
     setDesc('');
     setAmount('');
@@ -47,11 +48,23 @@ export const ExpensesManager: React.FC = () => {
         <div className="flex gap-2">
           <div className="flex flex-col gap-1" style={{ flex: 3 }}>
             <label className="text-label">Descripción</label>
-            <input className="input-field" placeholder="Ej. Arriendo" value={desc} onChange={(e) => setDesc(e.target.value)} />
+            <input
+              className="input-field"
+              placeholder="Ej. Arriendo"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
           </div>
           <div className="flex flex-col gap-1" style={{ flex: 2 }}>
             <label className="text-label">Monto ($)</label>
-            <input className="input-field mono" type="number" min="0" placeholder="0.00" value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <input
+              className="input-field mono"
+              type="number"
+              min="0"
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
           </div>
         </div>
 
@@ -85,9 +98,17 @@ export const ExpensesManager: React.FC = () => {
         {scope === 'INDIVIDUAL' && (
           <div className="flex flex-col gap-1 animate-fade-in">
             <label className="text-label">Asignar a</label>
-            <select className="input-field" value={assignedId} onChange={(e) => setAssignedId(e.target.value)}>
+            <select
+              className="input-field"
+              value={assignedId}
+              onChange={(e) => setAssignedId(e.target.value)}
+            >
               <option value="">Selecciona un integrante...</option>
-              {members.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}
+              {members.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
+              ))}
             </select>
           </div>
         )}
@@ -105,40 +126,95 @@ export const ExpensesManager: React.FC = () => {
 
       {/* Lista de gastos */}
       {expenses.length === 0 ? (
-        <p className="text-muted" style={{ textAlign: 'center', padding: '12px 0' }}>
+        <p
+          className="text-muted"
+          style={{ textAlign: 'center', padding: '12px 0' }}
+        >
           Aún no hay gastos registrados.
         </p>
       ) : (
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between" style={{ paddingBottom: '8px', borderBottom: '1px solid var(--color-border-soft)' }}>
+          <div
+            className="flex items-center justify-between"
+            style={{
+              paddingBottom: '8px',
+              borderBottom: '1px solid var(--color-border-soft)',
+            }}
+          >
             <span className="text-label">Total gastos</span>
-            <span className="mono" style={{ fontSize: '0.875rem', fontWeight: 600 }}>
-              ${totalExpenses.toLocaleString('es-CO', { minimumFractionDigits: 0 })}
+            <span
+              className="mono"
+              style={{ fontSize: '0.875rem', fontWeight: 600 }}
+            >
+              $
+              {totalExpenses.toLocaleString('es-CO', {
+                minimumFractionDigits: 0,
+              })}
             </span>
           </div>
           {expenses.map((expense) => {
-            const assignedMember = members.find((m) => m.id === expense.member_id_assigned);
+            const assignedMember = members.find(
+              (m) => m.id === expense.member_id_assigned,
+            );
             return (
-              <div key={expense.id}
+              <div
+                key={expense.id}
                 className="animate-fade-in"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', padding: '8px 0', borderBottom: '1px solid var(--color-border-soft)' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '8px',
+                  padding: '8px 0',
+                  borderBottom: '1px solid var(--color-border-soft)',
+                }}
               >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                  <span style={{ fontWeight: 500, fontSize: '0.875rem' }}>{expense.description}</span>
-                  <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                    <span className={`badge ${expense.type === 'FIXED' ? 'badge-green' : 'badge-copper'}`}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '3px',
+                  }}
+                >
+                  <span style={{ fontWeight: 500, fontSize: '0.875rem' }}>
+                    {expense.description}
+                  </span>
+                  <div
+                    style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}
+                  >
+                    <span
+                      className={`badge ${expense.type === 'FIXED' ? 'badge-green' : 'badge-copper'}`}
+                    >
                       {expense.type === 'FIXED' ? 'Fijo' : 'Variable'}
                     </span>
-                    <span className={`badge ${expense.scope === 'SHARED' ? 'badge-green' : 'badge-copper'}`}>
-                      {expense.scope === 'SHARED' ? 'Compartido' : `Individual${assignedMember ? ` · ${assignedMember.name}` : ''}`}
+                    <span
+                      className={`badge ${expense.scope === 'SHARED' ? 'badge-green' : 'badge-copper'}`}
+                    >
+                      {expense.scope === 'SHARED'
+                        ? 'Compartido'
+                        : `Individual${assignedMember ? ` · ${assignedMember.name}` : ''}`}
                     </span>
                   </div>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-                  <span className="mono" style={{ fontWeight: 600, fontSize: '0.9rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span
+                    className="mono"
+                    style={{ fontWeight: 600, fontSize: '0.9rem' }}
+                  >
                     ${Number(expense.amount).toLocaleString('es-CO')}
                   </span>
-                  <button className="btn btn-danger btn-sm" onClick={() => removeExpense(expense.id)} title="Eliminar">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => removeExpense(expense.id)}
+                    title="Eliminar"
+                  >
                     <Trash2 size={12} />
                   </button>
                 </div>

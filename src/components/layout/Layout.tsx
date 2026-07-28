@@ -17,16 +17,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold">
             E
           </div>
-          <h1 className="font-bold text-xl tracking-tight text-slate-800">Eko-Finanzas</h1>
+          <h1 className="font-bold text-xl tracking-tight text-slate-800">
+            Eko-Finanzas
+          </h1>
         </div>
       </header>
 
       <main className="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         {children}
       </main>
-      
+
       <footer className="py-6 text-center text-slate-500 text-sm border-t border-slate-200 bg-white">
-        Eko-Finanzas &copy; {new Date().getFullYear()} - Gestión equitativa de gastos.
+        Eko-Finanzas &copy; {new Date().getFullYear()} - Gestión equitativa de
+        gastos.
       </footer>
     </div>
   );

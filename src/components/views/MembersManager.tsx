@@ -7,11 +7,15 @@ import { useFinances } from '@/hooks/useFinances';
  * Aplica patrón Observer: reacciona al store global via useFinances.
  */
 export const MembersManager: React.FC = () => {
-  const { members, addMember, removeMember, calculateProrating } = useFinances();
+  const { members, addMember, removeMember, calculateProrating } =
+    useFinances();
   const [name, setName] = useState('');
   const [income, setIncome] = useState('');
   const proration = calculateProrating();
-  const totalIncome = members.reduce((sum, m) => sum + Number(m.monthly_income), 0);
+  const totalIncome = members.reduce(
+    (sum, m) => sum + Number(m.monthly_income),
+    0,
+  );
 
   const handleAdd = () => {
     const incomeNum = parseFloat(income);
@@ -67,16 +71,31 @@ export const MembersManager: React.FC = () => {
 
       {/* Lista de miembros */}
       {members.length === 0 ? (
-        <p className="text-muted" style={{ textAlign: 'center', padding: '12px 0' }}>
+        <p
+          className="text-muted"
+          style={{ textAlign: 'center', padding: '12px 0' }}
+        >
           Aún no hay integrantes. Agrega el primero.
         </p>
       ) : (
         <div className="flex flex-col gap-3">
           {/* Ingreso total */}
-          <div className="flex items-center justify-between" style={{ paddingBottom: '8px', borderBottom: '1px solid var(--color-border-soft)' }}>
+          <div
+            className="flex items-center justify-between"
+            style={{
+              paddingBottom: '8px',
+              borderBottom: '1px solid var(--color-border-soft)',
+            }}
+          >
             <span className="text-label">Ingreso total del hogar</span>
-            <span className="mono" style={{ fontSize: '0.875rem', fontWeight: 600 }}>
-              ${totalIncome.toLocaleString('es-CO', { minimumFractionDigits: 0 })}
+            <span
+              className="mono"
+              style={{ fontSize: '0.875rem', fontWeight: 600 }}
+            >
+              $
+              {totalIncome.toLocaleString('es-CO', {
+                minimumFractionDigits: 0,
+              })}
             </span>
           </div>
 
@@ -85,16 +104,45 @@ export const MembersManager: React.FC = () => {
             const pct = pror ? pror.proportional_percentage : 0;
 
             return (
-              <div key={member.id} className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                    <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{member.name}</span>
-                    <span className="mono text-secondary" style={{ fontSize: '0.8rem' }}>
+              <div
+                key={member.id}
+                className="animate-fade-in"
+                style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '2px',
+                    }}
+                  >
+                    <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>
+                      {member.name}
+                    </span>
+                    <span
+                      className="mono text-secondary"
+                      style={{ fontSize: '0.8rem' }}
+                    >
                       ${Number(member.monthly_income).toLocaleString('es-CO')}
                     </span>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span className="badge badge-green">{(pct * 100).toFixed(0)}%</span>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span className="badge badge-green">
+                      {(pct * 100).toFixed(0)}%
+                    </span>
                     <button
                       className="btn btn-danger btn-sm"
                       onClick={() => removeMember(member.id)}
@@ -106,7 +154,10 @@ export const MembersManager: React.FC = () => {
                 </div>
                 {/* Signature: proportion bar */}
                 <div className="proportion-track">
-                  <div className="proportion-fill" style={{ width: `${pct * 100}%` }} />
+                  <div
+                    className="proportion-fill"
+                    style={{ width: `${pct * 100}%` }}
+                  />
                 </div>
               </div>
             );
